@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# compile
+../bin/mpif90 $1
+
+# run
+../bin/mpirun --allow-run-as-root -np $2 a.out
