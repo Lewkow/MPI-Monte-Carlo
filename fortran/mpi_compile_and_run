@@ -4,4 +4,4 @@
 ../bin/mpif90 $1
 
 # run
-../bin/mpirun --allow-run-as-root -np $2 a.out
+../bin/mpirun --allow-run-as-root --use-hwthread-cpus -np $2 a.out
