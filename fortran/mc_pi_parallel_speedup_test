@@ -1,0 +1,6 @@
+#!/bin/bash
+
+./mpi_compile_and_run mpi_mc_pi.f90 1
+./mpi_compile_and_run mpi_mc_pi.f90 2
+./mpi_compile_and_run mpi_mc_pi.f90 3
+./mpi_compile_and_run mpi_mc_pi.f90 4

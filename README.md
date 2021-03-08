@@ -34,3 +34,44 @@ $ ./start_docker_container
 This script will create a container with the image we built previously, link our local volumes for `./fortran` and `./c` to the container volumes `/runner/fortran` and `/runner/c` respectively.
 This volume linking is dynamic, so with the container running, you are able to create files or update files in the linked directories and they will update accordingly in the container filesystem.
 This allows for local editing of codes in an IDE while running the codes in a stable virtual environment that can run in the background continuously.
+
+## MPI Projects
+
+### Monte Carlo PI Calculation
+Very simple numerical integration to determine the value of pi.
+Every Monte Carlo dart is assigned a random x and y coordinate which can range from 0-1, putting the dart in the first quardrant of the unit x-y plane.
+If the dart is within a circle of radius 1 centered on the origin, log a hit, else log a miss.
+Area is then simply the ratio of hits to total darts and the value of pi is 4 times this ratio (4 * pi * r * r) where r is 1.
+
+The script can be run with varying numbers of parallel threads to compare parallel speedup.
+```
+root@27a2df23a623:/runner/fortran# ./mc_pi_parallel_speedup_test 
+ ---------------------------------------
+ parallel processes:            1
+ total test darts:    100000000
+ runtime (sec):    5.3192481029999996     
+ theoretical pi:    3.1415926535897931     
+ simulated pi:    3.1417706012725830     
+ percent error:    5.6642506655519755E-003
+ ---------------------------------------
+ parallel processes:            2
+ total test darts:    100000000
+ runtime (sec):    3.4949827849999999     
+ theoretical pi:    3.1415926535897931     
+ simulated pi:    3.1417145729064941     
+ percent error:    3.8808123822708681E-003
+ ---------------------------------------
+ parallel processes:            3
+ total test darts:    100000000
+ runtime (sec):    2.4801485329999999     
+ theoretical pi:    3.1415926535897931     
+ simulated pi:    3.1414732933044434     
+ percent error:    3.7993558844545811E-003
+ ---------------------------------------
+ parallel processes:            4
+ total test darts:    100000000
+ runtime (sec):    1.9525828370000000     
+ theoretical pi:    3.1415926535897931     
+ simulated pi:    3.1415975093841553     
+ percent error:    1.5456473507502271E-004
+```
